@@ -24,7 +24,7 @@ jobs:
       - name: Run Tests
         run: go test ./... -cover
  
-      - namw: Security Checks
+      - name: Security Checks
         run: gosec ./...
 
     
