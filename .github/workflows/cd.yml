@@ -20,3 +20,19 @@ jobs:
 
       - name: Build The App
         run: chmod +x ./scripts/buildprod.sh && bash scripts/buildprod.sh
+
+      - name: GCP Auth
+        uses: 'google-github-actions/auth@v3'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v3'
+        with:
+          version: '>= 363.0.0'
+
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
+
+      - name: Build & Push to Registry
+        run: gcloud builds submit --tag us-central1-docker.pkg.dev/learn-ci-cd-boot-dev/notely-ar-repo/notely:latest .
